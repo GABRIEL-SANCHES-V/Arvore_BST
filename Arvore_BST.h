@@ -12,7 +12,7 @@ typedef struct No{
 
 void inicializar_arvore(Apontador *raiz);
 void criar_no(Apontador *no, int valor);
-void antecessor(Apontador no, Apontador *nos_Esq);
+void antecessor(Apontador no, Apontador *nos_Dir);
 
 
 void inserir(Apontador *no, int valor);

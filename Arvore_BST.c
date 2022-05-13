@@ -11,17 +11,17 @@ void criar_no(Apontador *no, int valor) {
     (*no)->Dir = NULL;
 }
 
-void antecessor(Apontador no, Apontador *no_Esq){
+void antecessor(Apontador no, Apontador *no_Dir){
     Apontador Aux;
-    if((*no_Esq)->Dir == NULL){
-        antecessor(no, &(*no_Esq)->Dir);
+    if((*no_Dir)->Dir != NULL){
+        antecessor(no, &(*no_Dir)->Dir);
         return;
     }
 
-    no->valor = (*no_Esq)->valor;
-    Aux = *no_Esq;
-    *no_Esq = (*no_Esq)->Esq;
-    free(Aux);
+    no->valor = (*no_Dir)->valor;
+    no = *no_Dir;
+    *no_Dir = (*no_Dir)->Esq;
+    free(no);
 }
 
 void inserir(Apontador *no, int valor){
@@ -91,13 +91,12 @@ void retirar(Apontador *no, int valor){
             free(Aux);
             return;
         }if((*no)->Esq != NULL){
-            antecessor(*no, &(*no)->Esq);
+            antecessor(*no, &(*no)->Dir);
             return;
         }
         Aux = *no;
         *no = (*no)->Dir;
         free(Aux);
-        printf("teste");
     }
 }
 

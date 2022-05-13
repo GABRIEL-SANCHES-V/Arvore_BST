@@ -17,6 +17,16 @@ int main()
     printf("\n");
     percurso_pos_ordem(raiz);
     printf("\n");
+
+    retirar(&raiz, 3);
+
+    percurso_pre_ordem(raiz);
+    printf("\n");
+    percurso_em_ordem(raiz);
+    printf("\n");
+    percurso_pos_ordem(raiz);
+    printf("\n");
+
     pesquisar(&raiz, 7);
     printf("\n");
     printf("Altura da  rvore -> %d\n", altura_da_arvore(&raiz));
