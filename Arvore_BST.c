@@ -97,6 +97,7 @@ void retirar(Apontador *no, int valor){
         Aux = *no;
         *no = (*no)->Dir;
         free(Aux);
+        printf("teste");
     }
 }
 
