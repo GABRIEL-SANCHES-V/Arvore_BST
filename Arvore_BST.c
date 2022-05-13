@@ -4,47 +4,56 @@ void inicializar_arvore(Apontador *raiz){
     *raiz = NULL;
 }
 
-void criar_no(Apontador *no, int valor) {
-    *no = (Apontador) malloc(sizeof(No));
-    (*no)->valor = valor;
-    (*no)->Esq = NULL;
-    (*no)->Dir = NULL;
+int criar_no(Apontador *no, int valor) {
+    int criou = 0;
+    if (*no == NULL) {
+        *no = (Apontador) malloc(sizeof(No));
+        (*no)->valor = valor;
+        (*no)->Esq = NULL;
+        (*no)->Dir = NULL;
+        criou = 1;
+    }
+    return criou;
 }
 
 void antecessor(Apontador no, Apontador *no_Dir){
-    Apontador Aux;
     if((*no_Dir)->Dir != NULL){
         antecessor(no, &(*no_Dir)->Dir);
-        return;
+    } else {
+        no->valor = (*no_Dir)->valor;
+        no = *no_Dir;
+        *no_Dir = (*no_Dir)->Esq;
+        free(no);
     }
+}
 
-    no->valor = (*no_Dir)->valor;
-    no = *no_Dir;
-    *no_Dir = (*no_Dir)->Esq;
-    free(no);
+int deve_inserir_esquerda(int valor_arvore, int valor_novo) {
+    return valor_arvore > valor_novo;
+}
+
+int deve_inserir_direita(int valor_arvore, int valor_novo) {
+    return valor_arvore < valor_novo;
 }
 
 void inserir(Apontador *no, int valor){
-    if(*no == NULL)
-        criar_no(no, valor);
-        
-    else{
-        if((*no)->valor > valor){
-            inserir(&(*no)->Esq, valor); 
-        } else if((*no)->valor < valor){
-            inserir(&(*no)->Dir, valor);
-        } else{
-            printf("\nErro: Registro j  existe na arvore\n");
-        }
+    int criou = criar_no(no, valor);
+
+    if(deve_inserir_esquerda((*no)->valor, valor)) {
+        inserir(&(*no)->Esq, valor);
+
+    } else if(deve_inserir_direita((*no)->valor, valor)) {
+        inserir(&(*no)->Dir, valor);
+
+    } else if (criou == 0){
+        printf("\nErro: Registro %d j  existe na  rvore\n", (*no)->valor);
     }
 }
 
 void pesquisar(Apontador *no, int valor){
     if(*no == NULL){
         printf("\nChave nÆo encontrada\n");
-        return;
 
-    }else{   
+    } else {   
         if((*no)->valor > valor)
             pesquisar(&(*no)->Esq, valor);
 
@@ -52,7 +61,7 @@ void pesquisar(Apontador *no, int valor){
             pesquisar(&(*no)->Dir, valor);
         
         else if((*no)->valor == valor){
-            printf("\n%d - Chave encontrada\n", valor);
+            printf("\n%d - Chave encontrada\n", (*no)->valor);
             return;
         }
     }

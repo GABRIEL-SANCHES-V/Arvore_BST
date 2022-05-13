@@ -11,8 +11,10 @@ typedef struct No{
 }No;
 
 void inicializar_arvore(Apontador *raiz);
-void criar_no(Apontador *no, int valor);
+int criar_no(Apontador *no, int valor);
 void antecessor(Apontador no, Apontador *nos_Dir);
+int deve_inserir_esquerda(int valor_arvore, int valor_novo);
+int deve_inserir_direita(int valor_arvore, int valor_novo);
 
 
 void inserir(Apontador *no, int valor);

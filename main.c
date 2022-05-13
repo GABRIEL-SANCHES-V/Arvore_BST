@@ -12,6 +12,7 @@ int main()
     inserir(&raiz, 4);
     inserir(&raiz, 6);
     inserir(&raiz, 1);
+    inserir(&raiz, 5);
 
     percurso_pre_ordem(raiz);
     printf("\n");
@@ -20,7 +21,7 @@ int main()
     percurso_pos_ordem(raiz);
     printf("\n");
 
-    retirar(&raiz, 10);
+    retirar(&raiz, 7);
 
     printf("\n");
     percurso_pre_ordem(raiz);
@@ -34,6 +35,6 @@ int main()
 
     printf("\n");
     printf("Altura da  rvore -> %d\n", altura_da_arvore(&raiz));
-    
+
     return 0;
 }
