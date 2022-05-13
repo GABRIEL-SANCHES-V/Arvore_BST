@@ -83,32 +83,46 @@ int altura_da_arvore(Apontador *no){
     return (he + 1);
 }
 
-void retirar(Apontador *no, int valor){
-    Apontador Aux;
+char is_fim_da_arvore(Apontador *no){
+    char is_fim = FALSE;
     if(*no == NULL){
         printf("\nErro: item nÆo existe.\n");
-        return;
+        is_fim = TRUE;
     }
+    return is_fim;
+}
 
-    if((*no)->valor > valor)
-        retirar(&(*no)->Esq, valor);
+int deve_retirar_esquerda(int valor_arvore, int valor_novo) {
+    return valor_arvore > valor_novo;
+}
 
-    else if((*no)->valor < valor)
-        retirar(&(*no)->Dir, valor);
+int deve_retirar_direita(int valor_arvore, int valor_novo) {
+    return valor_arvore < valor_novo;
+}
+
+void retirar(Apontador *no, int valor){
+    Apontador Aux;
     
-    else{
-        if((*no)->Dir == NULL){
-            Aux = *no;
-            *no = (*no)->Esq;
-            free(Aux);
+    if(is_fim_da_arvore(no) == FALSE){
+        if(deve_retirar_esquerda((*no)->valor, valor)){
+            retirar(&(*no)->Esq, valor);
 
-        } else if((*no)->Esq != NULL) {
-            antecessor(*no, &(*no)->Dir);
-
+        } else if(deve_retirar_direita((*no)->valor, valor)){
+            retirar(&(*no)->Dir, valor);
         } else {
-            Aux = *no;
-            *no = (*no)->Dir;
-            free(Aux);
+            if((*no)->Dir == NULL){
+                Aux = *no;
+                *no = (*no)->Esq;
+                free(Aux);
+
+            } else if((*no)->Esq != NULL) {
+                antecessor(*no, &(*no)->Dir);
+
+            } else {
+                Aux = *no;
+                *no = (*no)->Dir;
+                free(Aux);
+            }
         }
     }
 }
