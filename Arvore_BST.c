@@ -74,7 +74,7 @@ int altura_da_arvore(Apontador *no){
 void retirar(Apontador *no, int valor){
     Apontador Aux;
     if(*no == NULL){
-        printf("Erro item n∆o existe");
+        printf("\nErro: item n∆o existe.\n");
         return;
     }
 
