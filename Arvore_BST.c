@@ -98,14 +98,15 @@ void retirar(Apontador *no, int valor){
             Aux = *no;
             *no = (*no)->Esq;
             free(Aux);
-            return;
-        }if((*no)->Esq != NULL){
+            
+        } else if((*no)->Esq != NULL) {
             antecessor(*no, &(*no)->Dir);
-            return;
+
+        } else {
+            Aux = *no;
+            *no = (*no)->Dir;
+            free(Aux);
         }
-        Aux = *no;
-        *no = (*no)->Dir;
-        free(Aux);
     }
 }
 
