@@ -1,7 +1,6 @@
 #include "Arvore_BST.h"
 
-int main()
-{    
+int main(){
     No *raiz;
     inicializar_arvore(&raiz);
 
@@ -38,3 +37,5 @@ int main()
 
     return 0;
 }
+
+

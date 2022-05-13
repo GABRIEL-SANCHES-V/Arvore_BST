@@ -56,13 +56,12 @@ void pesquisar(Apontador *no, int valor){
     if(*no == NULL){
         printf("\nChave nÆo encontrada\n");
 
-    } else {   
+    } else {
         if((*no)->valor > valor)
             pesquisar(&(*no)->Esq, valor);
 
         else if((*no)->valor < valor)
             pesquisar(&(*no)->Dir, valor);
-        
         else if((*no)->valor == valor){
             printf("\n%d - Chave encontrada\n", (*no)->valor);
             return;
@@ -100,29 +99,36 @@ int deve_retirar_direita(int valor_arvore, int valor_novo) {
     return valor_arvore < valor_novo;
 }
 
-void retirar(Apontador *no, int valor){
+void retirar_no_atual(Apontador *no){
     Apontador Aux;
-    
+
+    if((*no)->Dir == NULL){
+        Aux = *no;
+        *no = (*no)->Esq;
+        free(Aux);
+
+    } else if((*no)->Esq != NULL) {
+        antecessor(*no, &(*no)->Dir);
+
+    } else {
+        Aux = *no;
+        *no = (*no)->Dir;
+        free(Aux);
+    }
+}
+
+void retirar(Apontador *no, int valor){
     if(is_fim_da_arvore(no) == FALSE){
+
         if(deve_retirar_esquerda((*no)->valor, valor)){
             retirar(&(*no)->Esq, valor);
 
         } else if(deve_retirar_direita((*no)->valor, valor)){
             retirar(&(*no)->Dir, valor);
+
         } else {
-            if((*no)->Dir == NULL){
-                Aux = *no;
-                *no = (*no)->Esq;
-                free(Aux);
+            retirar_no_atual(&(*no));
 
-            } else if((*no)->Esq != NULL) {
-                antecessor(*no, &(*no)->Dir);
-
-            } else {
-                Aux = *no;
-                *no = (*no)->Dir;
-                free(Aux);
-            }
         }
     }
 }
@@ -136,7 +142,7 @@ void percurso_em_ordem(Apontador raiz){
             percurso_em_ordem(raiz->Esq);
 
         printf("%d ", raiz->valor);
-        
+
         if(raiz->Dir != NULL)
             percurso_em_ordem(raiz->Dir);
     }
@@ -165,7 +171,7 @@ void percurso_pos_ordem(Apontador raiz){
     else{
         if(raiz->Esq != NULL)
             percurso_pos_ordem(raiz->Esq);
-        
+
         if(raiz->Dir != NULL)
             percurso_pos_ordem(raiz->Dir);
 
