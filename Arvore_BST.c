@@ -1,17 +1,20 @@
 #include "Arvore_BST.h"
 
+char FALSE = 'f';
+char TRUE = 't';
+
 void inicializar_arvore(Apontador *raiz){
     *raiz = NULL;
 }
 
-int criar_no(Apontador *no, int valor) {
-    int criou = 0;
+char criar_no(Apontador *no, int valor) {
+    char criou = FALSE;
     if (*no == NULL) {
         *no = (Apontador) malloc(sizeof(No));
         (*no)->valor = valor;
         (*no)->Esq = NULL;
         (*no)->Dir = NULL;
-        criou = 1;
+        criou = TRUE;
     }
     return criou;
 }
@@ -36,7 +39,7 @@ int deve_inserir_direita(int valor_arvore, int valor_novo) {
 }
 
 void inserir(Apontador *no, int valor){
-    int criou = criar_no(no, valor);
+    char criou = criar_no(no, valor);
 
     if(deve_inserir_esquerda((*no)->valor, valor)) {
         inserir(&(*no)->Esq, valor);
@@ -44,7 +47,7 @@ void inserir(Apontador *no, int valor){
     } else if(deve_inserir_direita((*no)->valor, valor)) {
         inserir(&(*no)->Dir, valor);
 
-    } else if (criou == 0){
+    } else if (criou == FALSE){
         printf("\nErro: Registro %d j  existe na  rvore\n", (*no)->valor);
     }
 }
@@ -98,7 +101,7 @@ void retirar(Apontador *no, int valor){
             Aux = *no;
             *no = (*no)->Esq;
             free(Aux);
-            
+
         } else if((*no)->Esq != NULL) {
             antecessor(*no, &(*no)->Dir);
 
