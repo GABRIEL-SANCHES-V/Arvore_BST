@@ -2,6 +2,37 @@
 char TRUE = 't';
 char FALSE = 'f';
 
+void coletar_dados(FILE *file, Aluno *Dados){
+    char Aux [100];
+    char *pt;
+    int contador = 0;
+
+    if (file == NULL)
+    {
+        printf("Falha ao abrir o arquivo.\n");
+
+    }else{
+        fgets(Aux, 100, file);
+        pt = strtok(Aux, "-");
+        while(pt) {
+            if (contador == 0) {
+                strcpy(Dados->nome, pt);
+                contador++;
+
+            } else if (contador == 1) {
+                Dados->matricula = atoi(pt);
+                contador++;
+
+            } else if (contador == 2) {
+                Dados->notas = atof (pt);
+                contador++;
+            }
+
+            pt = strtok(NULL, "-");
+        }
+    }
+}
+
 void inicializar_arvore(Apontador *no){
     *no = NULL;
 }
@@ -44,9 +75,10 @@ void em_ordem_decrescente(Apontador no){
     if(no->Dir != NULL)
         em_ordem_decrescente(no->Dir);
 
-    printf("Notas: %d Nome: %s Matricula: %d\n", no->Dados.notas, no->Dados.nome, no->Dados.matricula);
+    printf("Notas: %.2f Nome: %s Matricula: %d\n", no->Dados.notas, no->Dados.nome, no->Dados.matricula);
 
     if(no->Esq != NULL)
         em_ordem_decrescente(no->Esq);
 }
+
 

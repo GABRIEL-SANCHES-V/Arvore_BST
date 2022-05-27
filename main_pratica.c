@@ -2,42 +2,29 @@
 
 int main(){
 
-    Aluno Dados [7];
+    Aluno Dados;
+    FILE *file;
     No *raiz;
-
-    Dados[0].notas = 7;
-    Dados[1].notas = 6;
-    Dados[2].notas = 8;
-    Dados[3].notas = 9;
-    Dados[4].notas = 7;
-    Dados[5].notas = 10;
-    Dados[6].notas = 2;
-    Dados[0].matricula = 556;
-    Dados[1].matricula = 557;
-    Dados[2].matricula = 558;
-    Dados[3].matricula = 559;
-    Dados[4].matricula = 555;
-    Dados[5].matricula = 554;
-    Dados[6].matricula = 553;
-    strcpy(Dados[0].nome,"Fernada");
-    strcpy(Dados[1].nome,"Carlor");
-    strcpy(Dados[2].nome,"Henrique");
-    strcpy(Dados[3].nome,"Jo∆o");
-    strcpy(Dados[4].nome,"Juliana");
-    strcpy(Dados[5].nome,"Gabriel");
-    strcpy(Dados[6].nome,"Rodrigo");
-
+    char nome_arquivo [] = "Arquivo_teste.txt";
+    int Num_alunos = 0, Maior= 0, Menor = 0;
 
     inicializar_arvore(&raiz);
 
-    inserir(&raiz, Dados[0]);
-    inserir(&raiz, Dados[1]);
-    inserir(&raiz, Dados[2]);
-    inserir(&raiz, Dados[3]);
-    inserir(&raiz, Dados[4]);
-    inserir(&raiz, Dados[5]);
-    inserir(&raiz, Dados[6]);
+    file = fopen(nome_arquivo, "r");
+
+    while(!feof(file)){
+        coletar_dados(&(*file), &Dados);
+        inserir(&raiz,Dados);
+        Num_alunos++;
+    }
+
+    fclose(file);
 
     em_ordem_decrescente(raiz);
+
+    printf("N£mero de Alunos matriculados na disciplina: %d", Num_alunos);
+
+
+
     return 0;
 }
