@@ -75,10 +75,50 @@ void em_ordem_decrescente(Apontador no){
     if(no->Dir != NULL)
         em_ordem_decrescente(no->Dir);
 
-    printf("Notas: %.2f Nome: %s Matricula: %d\n", no->Dados.notas, no->Dados.nome, no->Dados.matricula);
+    printf("%.2f - %s - %d\n", no->Dados.notas, no->Dados.nome, no->Dados.matricula);
 
     if(no->Esq != NULL)
         em_ordem_decrescente(no->Esq);
 }
 
+float maior(Apontador no){
+    int Maior = 0;
+    if(no != NULL) {
+        if(no->Dir != NULL){
+            Maior = maior(no->Dir);
+
+        } else if(no->Dir == 0) {
+            Maior = no->Dados.notas;
+        }
+    }
+    return Maior;
+}
+
+float menor(Apontador no){
+    int Menor = 0;
+    if(no != NULL){
+        if(no->Esq != NULL){
+            Menor = menor(no->Esq);
+
+        } else if(no->Esq == 0) {
+            Menor = no->Dados.notas;
+        }
+    }
+    return Menor;
+}
+
+void media(Apontador no, float Media){
+    if(no->Dir != NULL) {
+        media(no->Dir, Media);
+    }
+
+    if (no->Dados.notas >= Media) {
+        printf("%.2f - %s - %d\n", no->Dados.notas, no->Dados.nome, no->Dados.matricula);
+
+    }
+
+    if(no->Esq != NULL) {
+        media(no->Esq, Media);
+    }
+}
 

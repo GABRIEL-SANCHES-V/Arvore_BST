@@ -24,5 +24,7 @@ void inserir(Apontador *no, Aluno dados);
 
 void em_ordem_decrescente(Apontador no);
 
-int Maior(Apontador no);
-int Menor(Apontador no);
+float maior(Apontador no);
+float menor(Apontador no);
+
+void media(Apontador no, float media);

@@ -6,7 +6,8 @@ int main(){
     FILE *file;
     No *raiz;
     char nome_arquivo [] = "Arquivo_teste.txt";
-    int Num_alunos = 0, Maior= 0, Menor = 0;
+    int Num_alunos = 0;
+    float Maior = 0, Menor = 0, Media = 0, nota_max = 25;
 
     inicializar_arvore(&raiz);
 
@@ -22,7 +23,17 @@ int main(){
 
     em_ordem_decrescente(raiz);
 
-    printf("N£mero de Alunos matriculados na disciplina: %d", Num_alunos);
+    Maior = maior(raiz);
+    Menor = menor(raiz);
+
+    printf("\nN£mero de Alunos: %d\nMaior nota: %.2f\nMenor nota: %.2f\n\n", Num_alunos, Maior, Menor);
+
+    Media = nota_max * 0.6;
+
+    printf("Alunos que atingiram a m‚dia:\n");
+    media(raiz, Media);
+
+
 
 
 
